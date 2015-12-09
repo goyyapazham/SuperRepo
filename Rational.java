@@ -90,19 +90,33 @@ public class Rational implements Comparable {
     /* by multiplying the num and den of one factor by the den/gcd of 
        the other we are essentially finding the lcm of both denominators */
 
-    public int compareTo(Rational r) {
-        int gcd = gcd(den, r.den);
-        int x = den / gcd;
-	int y = r.den / gcd;
-	if (num * y > r.num * x) return 1;
-	if (num * y == r.num * x) return 0;
-	return -1;
-    }
-
-    public int compareTo(Object o) {
-	if (o instanceof Rational)
-	    return compareTo((Rational)o);
-	return 999;
+    public int compareTo(Object other) {
+	//first, check for aliasing...
+	if (this == other) return 0;
+	//if other is comparable...
+	else if (other instanceof Comparable) {
+	    //if other is rational, cross-multiply and compare
+	    if (other instanceof Rational) {
+		int x = num * ((Rational)other).den;
+		int y = den * ((Rational)other).num;
+		if (x > y) return 1;
+		if (x == y) return 0;
+	    }
+	    //otherwise compare float value to dec representation of other
+	    if (other instanceof Binary) {
+		if (floatValue() > ((Binary)other).getDec()) return 1;
+		if (floatValue() == ((Binary)other).getDec()) return 0;
+		if (floatValue() < ((Binary)other).getDec()) return -1;
+	    }
+	    if (other instanceof Hexadecimal) {
+		if (floatValue() > ((Hexadecimal)other).getDec()) return 1;
+		if (floatValue() == ((Hexadecimal)other).getDec()) return 0;
+		if (floatValue() < ((Hexadecimal)other).getDec()) return -1;
+	    }
+	}
+	//otherwise, other is not comparable
+	else throw new ClassCastException("\ninput not comparable");
+	return 999; //never reached
     }
 
     public boolean equals(Object o) {

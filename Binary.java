@@ -27,6 +27,10 @@ public class Binary implements Comparable {
     public String toString() {
 	return _decNum + " -- " + _binNum;
     }
+
+    public int getDec() {
+	return _decNum;
+    }
     
     public static String decToBin( int n ) {
 	String s = "";
@@ -70,14 +74,32 @@ public class Binary implements Comparable {
         return compareTo(other) == 0;
     }
     
-    public int compareTo( Object other ) {
+     public int compareTo(Object other) {
+	//first, check for aliasing...
 	if (this == other) return 0;
-	if (other instanceof Binary) {
-	    if (_decNum < ((Binary)other)._decNum) return -1;
-	    if (_decNum > ((Binary)other)._decNum) return 1;
-	    if (_decNum == ((Binary)other)._decNum) return 0;
+	//if other is comparable...
+	else if (other instanceof Comparable) {
+	    //if other is rational, compare dec representation to float value
+	    if (other instanceof Rational) {
+		if (_decNum > ((Rational)other).floatValue()) return 1;
+		if (_decNum == ((Rational)other).floatValue()) return 0;
+		if (_decNum < ((Rational)other).floatValue()) return -1;
+	    }
+	    //otherwise compare one dec representation to the other
+	    if (other instanceof Binary) {
+		if (_decNum > ((Binary)other).getDec()) return 1;
+		if (_decNum == ((Binary)other).getDec()) return 0;
+		if (_decNum < ((Binary)other).getDec()) return -1;
+	    }
+	    if (other instanceof Hexadecimal) {
+		if (_decNum > ((Hexadecimal)other).getDec()) return 1;
+		if (_decNum == ((Hexadecimal)other).getDec()) return 0;
+		if (_decNum < ((Hexadecimal)other).getDec()) return -1;
+	    }
 	}
-	return 999; //if input is not of class Binary
+	//otherwise, other is not comparable
+	else throw new ClassCastException("\ninput not comparable");
+	return 999; //never reached
     }
 
     //main method for testing

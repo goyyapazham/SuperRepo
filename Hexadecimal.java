@@ -28,6 +28,11 @@ public class Hexadecimal implements Comparable {
 	_hexNum = s;
     }
 
+    //accessor
+    public int getDec() {
+	return _decNum;
+    }
+
     //string representation
     public String toString() {
 	return _decNum + " -- " + _hexNum;
@@ -84,17 +89,31 @@ public class Hexadecimal implements Comparable {
 	return compareTo(other) == 0;
     }
 
-    public int compareTo( Object other ) {
-	//first, check for aliasing
-	if(this == other) return 0;
-	//if other is a Hexadecimal...
-	if(other instanceof Hexadecimal) {
-	    if (_decNum < ((Hexadecimal)other)._decNum) return -1;
-	    if (_decNum > ((Hexadecimal)other)._decNum) return 1;
-	    if (_decNum == ((Hexadecimal)other)._decNum) return 0;
+    public int compareTo(Object other) {
+	//first, check for aliasing...
+	if (this == other) return 0;
+	//if other is comparable...
+	else if (other instanceof Comparable) {
+	    //if other is rational, compare dec representation to float value
+	    if (other instanceof Rational) {
+		if (_decNum > ((Rational)other).floatValue()) return 1;
+		if (_decNum == ((Rational)other).floatValue()) return 0;
+		if (_decNum < ((Rational)other).floatValue()) return -1;
+	    }
+	    //otherwise compare one dec representation to the other
+	    if (other instanceof Binary) {
+		if (_decNum > ((Binary)other).getDec()) return 1;
+		if (_decNum == ((Binary)other).getDec()) return 0;
+		if (_decNum < ((Binary)other).getDec()) return -1;
+	    }
+	    if (other instanceof Hexadecimal) {
+		if (_decNum > ((Hexadecimal)other).getDec()) return 1;
+		if (_decNum == ((Hexadecimal)other).getDec()) return 0;
+		if (_decNum < ((Hexadecimal)other).getDec()) return -1;
+	    }
 	}
-	else throw new ClassCastException("\n My first error message! "
-					  + "compareTo() input not Hexadecimal!!!");
+	//otherwise, other is not comparable
+	else throw new ClassCastException("\ninput not comparable");
 	return 999; //never reached
     }
 
