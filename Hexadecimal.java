@@ -120,7 +120,7 @@ public class Hexadecimal implements Comparable {
     public static void main( String[] args ) {
 
 	//first overloaded constructor
-	Hexadecimal h1 = new Hexadecimal(5);
+	Hexadecimal h1 = new Hexadecimal(31);
 	Hexadecimal h2 = new Hexadecimal(4);
 	Hexadecimal h3 = new Hexadecimal(19);
 	Hexadecimal h4 = new Hexadecimal(144);
@@ -157,11 +157,31 @@ public class Hexadecimal implements Comparable {
 	System.out.println(h4.equals(h8)); //should be true
 
 	//testing .compareTo()
-	System.out.println("n.compareTo()...");
-	System.out.println(h1.compareTo(h3)); //should be neg
-	System.out.println(h3.compareTo(h1)); //should be pos
+	System.out.println("\n.compareTo()... (Hexadecimal)");
 	System.out.println(h1.compareTo(h9)); //should be 0
 	System.out.println(h4.compareTo(h8)); //should be 0
+	System.out.println(h3.compareTo(h1)); //should be neg
+	System.out.println(h1.compareTo(h3)); //should be pos
+
+	Rational r1 = new Rational(144, 36); //4
+	Rational r2 = new Rational(1536, 24); //64
+	Rational r3 = new Rational(961, 31); //31
+	Rational r4 = new Rational(129, 4); //32.25
+	System.out.println("\n.compareTo()... (Rational)");
+	System.out.println( h2.compareTo(r1) ); //should be 0
+	System.out.println( h1.compareTo(r3) ); //should be 0
+	System.out.println( h1.compareTo(r4) ); //should be neg
+	System.out.println( h3.compareTo(r1) ); //should be pos
+
+	Binary b1 = new Binary(4);
+	Binary b2 = new Binary(19);
+	Binary b3 = new Binary("10011");
+	Binary b4 = new Binary("100101");
+	System.out.println("\n.compareTo()... (Binary)");
+	System.out.println( h3.compareTo(b2) ); //should be 0
+	System.out.println( h2.compareTo(b1) ); //should be 0
+	System.out.println( h2.compareTo(b4) ); //should be neg
+	System.out.println( h4.compareTo(b3) ); //should be pos
 	
     }//end main()
 

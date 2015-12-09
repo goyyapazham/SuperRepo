@@ -112,11 +112,11 @@ public class Binary implements Comparable {
 	Binary b2 = new Binary(4);
 	Binary b3 = new Binary(19);
 	Binary b4 = new Binary(7);
-	Binary b5 = new Binary(88);
-	Binary b6 = new Binary(123);
-	Binary b7 = new Binary("1010101");
+	Binary b5 = new Binary(31);
+	Binary b6 = new Binary(144);
+	Binary b7 = new Binary("101");
 	Binary b8 = new Binary("1101111");
-	Binary b9 = new Binary("110101");
+	Binary b9 = new Binary("10011");
 
 	System.out.println( "b1: " + b1 );
 	System.out.println( "b2: " + b2 );
@@ -139,11 +139,31 @@ public class Binary implements Comparable {
 	System.out.println( b4.equals(b2) ); //should be false
 	System.out.println( b1.equals(b4) ); //should be false
 
-	System.out.println( "\n.compareTo..." );
-	System.out.println( b1.compareTo(b2) ); //should be 0
-	System.out.println( b1.compareTo(b3) ); //should be 0
+	System.out.println( "\n.compareTo()... (Binary)" );
+	System.out.println( b1.compareTo(b7) ); //should be 0
+	System.out.println( b3.compareTo(b9) ); //should be 0
 	System.out.println( b1.compareTo(b4) ); //should be neg
 	System.out.println( b4.compareTo(b1) ); //should be pos
+
+	Rational r1 = new Rational(144, 36); //4
+	Rational r2 = new Rational(1536, 24); //64
+	Rational r3 = new Rational(961, 31); //31
+	Rational r4 = new Rational(129, 4); //32.25
+	System.out.println( "\n.compareTo()... (Rational)" );
+	System.out.println( b5.compareTo(r3) ); //should be 0
+	System.out.println( b2.compareTo(r1) ); //should be 0
+	System.out.println( b4.compareTo(r2) ); //should be neg
+	System.out.println( b3.compareTo(r1) ); //should be pos
+
+	Hexadecimal h1 = new Hexadecimal(4);
+	Hexadecimal h2 = new Hexadecimal(19);
+	Hexadecimal h3 = new Hexadecimal("DEF");
+	Hexadecimal h4 = new Hexadecimal("90");
+	System.out.println( "\n.compareTo()... (Hexadecimal)" );
+	System.out.println( b2.compareTo(h1) ); //should be 0
+	System.out.println( b6.compareTo(h4) ); //should be 0
+	System.out.println( b3.compareTo(h3) ); //should be neg
+	System.out.println( b6.compareTo(h2) ); //should be pos
 	
     }//end main()
 
