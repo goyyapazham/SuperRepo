@@ -119,34 +119,95 @@ public class SuperArray {
     //return number of meaningful items in _data
     public int size() { return _size; }
 
+    //return true if SuperArray assorted in ascending order
+    public boolean isSorted() {
+	for(int i = 0; i < _size - 1; i++) {
+	    if (_data[i].compareTo(_data[i + 1]) == 1)
+		return false;
+	}
+	return true;
+    }
+
+    //return index of target if target in array; -1 otherwise
+    public int linSearch(Comparable target) {
+	for(int i = 0; i < _size; i++) {
+	    if (_data[i].equals(target)) return i;
+	}
+	return -1; //reaches if target not in SuperArray
+    }
+
     //main method for testing
     public static void main( String[] args ) {
 
-	//Rational array
-        SuperArray r = new SuperArray();
-	System.out.println("r pre-populate:  " + r);
+	//Comparable array
+        SuperArray arr = new SuperArray();
+	System.out.println("arr pre-populate:     " + arr);
 	
-	r.add(new Rational(144, 42));
-	r.add(new Rational(24, 153));
-	r.add(new Binary(31));
-	r.add(new Binary("1011101"));
-	r.add(new Hexadecimal(91));
-	r.add(new Hexadecimal("10A"));
+	arr.add(new Rational(144, 42));
+	arr.add(new Rational(24, 153));
+	arr.add(new Binary(31));
+	arr.add(new Binary("1011101"));
+	arr.add(new Hexadecimal(91));
+	arr.add(new Hexadecimal("10A"));
 
-	System.out.println("r post-populate: " + r);
+	System.out.println("arr post-populate:    " + arr);
 
-	r.remove(3);
-	System.out.println("remove index 3:  " + r);
-	r.remove(3);
-	System.out.println("remove index 3:  " + r);
+	arr.remove(3);
+	System.out.println("remove index 3:       " + arr);
+	arr.remove(3);
+	System.out.println("remove index 3:       " + arr);
 	
-	r.add(3, new Rational(3, 5));
-	System.out.println("insert Rational: " + r);
-	r.add(2, new Binary(16));
-	System.out.println("insert Binary:   " + r);
-	r.add(1, new Hexadecimal(135));
-	System.out.println("insert Hex:      " + r);
+	arr.add(3, new Rational(3, 5));
+	System.out.println("insert Rational:      " + arr);
+	arr.add(2, new Binary(16));
+	System.out.println("insert Binary:        " + arr);
+	arr.add(1, new Hexadecimal(135));
+	System.out.println("insert Hex:           " + arr);
 
+	//testing isSorted()
+	System.out.println("\ntesting isSorted()...");
+
+	Rational x1 = new Rational(1, 2);
+	Rational x2 = new Rational(3, 5);
+	Binary x3 = new Binary(27);
+	Binary x4 = new Binary(37);
+	Hexadecimal x5 = new Hexadecimal(27);
+	Hexadecimal x6 = new Hexadecimal(37);
+
+	SuperArray a1 = new SuperArray();
+	a1.add(x1);
+	a1.add(x2);
+	a1.add(x3);
+	a1.add(x5);
+	a1.add(x4);
+	a1.add(x6);
+
+	SuperArray a2 = new SuperArray();
+	a2.add(x1);
+	a2.add(x3);
+	a2.add(x5);
+	a2.add(x2);
+	a2.add(x4);
+	a2.add(x6);
+
+	System.out.println("a1 post-populate:     " + a1);
+	System.out.println("a1 is sorted:         " + a1.isSorted()); //true
+	System.out.println("a2 post-populate:     " + a2);
+	System.out.println("a2 is sorted:         " + a2.isSorted()); //false
+
+	//testing linSearch()
+	System.out.println("\ntesting linSearch()...");
+
+	System.out.println("a1 post-populate:     " + a1);
+	System.out.println("search for 3/5:       " +
+			   a1.linSearch(new Rational(3, 5)) ); //1
+	System.out.println("search for 25 (Bin):  " +
+			   a1.linSearch(new Binary(27)) ); //2
+	System.out.println("search for 25 (Hex):  " +
+			   a1.linSearch(new Hexadecimal(27)) ); //2
+	System.out.println("search for 90/7:      " +
+			   a1.linSearch(new Rational(90, 7)) ); //-1
+	
     }//end main
 		
 }//end class

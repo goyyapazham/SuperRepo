@@ -46,6 +46,7 @@ public class Rational implements Comparable {
     public String toString() {
 	reduce();
         return num  + "/" + den;
+	//return "" + floatValue();
     }
     
     public double floatValue() {
