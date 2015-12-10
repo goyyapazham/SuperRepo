@@ -35,7 +35,7 @@ public class Hexadecimal implements Comparable {
 
     //string representation
     public String toString() {
-	return _decNum + " -- " + _hexNum;
+	return _hexNum;
     }
 
     //iterative decimal to hexadecimal converter

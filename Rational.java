@@ -45,9 +45,7 @@ public class Rational implements Comparable {
 
     public String toString() {
 	reduce();
-	String frac = "Fractional form: " + num  + "/" + den + "\n";
-	String dec  = "Decimal form: " + floatValue() + "\n";
-	return frac + dec;
+        return num  + "/" + den;
     }
     
     public double floatValue() {

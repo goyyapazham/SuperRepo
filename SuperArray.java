@@ -22,64 +22,59 @@ public class SuperArray {
  
     //~~~~~INSTANCE VARS~~~~~
     //underlying container, or "core" of this data structure:
-    private int[] _data;
+    private Comparable[] _data;
 
     //position of last meaningful value
     private int _lastPos;
 
     //size of this instance of SuperArray
     private int _size;
-
 		
     //~~~~~METHODS~~~~~
     //default constructor - initializes 10-item array
     public SuperArray() { 
-	_data = new int[10];
+	_data = new Comparable[10];
 	_lastPos = -1; //flag to indicate no lastpos yet
 	_size = 0;	
     }
-
 		
     //output array in [a,b,c] format, eg
     // {1,2,3}.toString() -> "[1,2,3]"
     public String toString() { 
 	String retStr = "[";
 	for( int i = 0; i < _size; i++ ) {
-	    retStr += _data[i] + ",";
+	    retStr += _data[i] + ", ";
 	}
 	//shave off trailing comma
 	if ( retStr.length() > 1 )
-	    retStr = retStr.substring( 0, retStr.length()-1 );
+	    retStr = retStr.substring( 0, retStr.length() - 2 );
 	retStr += "]";
 	return retStr;
     }
-
 		
     //double capacity of this SuperArray
     private void expand() {
-	int[] temp = new int[ _data.length * 2 ];
+	Comparable[] temp = new Comparable[ _data.length * 2 ];
 	for( int i = 0; i < _data.length; i++ )
 	    temp[i] = _data[i];
 	_data = temp;
     }
-
 		
     //accessor -- return value at specified index
-    public int get( int index ) { return _data[index]; }
+    public Comparable get( int index ) { return _data[index]; }
 
 		
     //mutator -- set value at index to newVal, 
     //           return old value at index
-    public int set( int index, int newVal ) { 
- 	int temp = _data[index];
+    public Comparable set( int index, Comparable newVal ) { 
+ 	Comparable temp = _data[index];
 	_data[index] = newVal;
 	return temp;
     }
 
-
     // ~~~~~~~~~~~~~~ PHASE II ~~~~~~~~~~~~~~
     //adds an item after the last item
-    public void add( int newVal ) {
+    public void add( Comparable newVal ) {
 	if (_size == _data.length) 
 	    expand();
 	    
@@ -91,7 +86,7 @@ public class SuperArray {
 
     //inserts an item at index
     //shifts existing elements to the right
-    public void add( int index, int newVal ) {
+    public void add( int index, Comparable newVal ) {
 	if (_size == _data.length)
 	    expand();
 	else if (index < _size && index > -1) {
@@ -106,7 +101,6 @@ public class SuperArray {
 	    System.out.println("error: index out of range");	
     }
 
-
     //removes the item at index
     //shifts elements left to fill in newly-empted slot
     public void remove( int index ) {
@@ -114,7 +108,7 @@ public class SuperArray {
 	    for (int i = index; i < _lastPos; i++) {
 		_data[i] = _data[i+1];
 	    }
-	    _data[_lastPos] = 0;
+	    _data[_lastPos] = new Rational();
 	    _lastPos--;
 	    _size--;
 	}
@@ -122,36 +116,36 @@ public class SuperArray {
 	    System.out.println("error: index out of range");	
     }
     
-
     //return number of meaningful items in _data
     public int size() { return _size; }
 
     //main method for testing
     public static void main( String[] args ) {
 
-        SuperArray x = new SuperArray();
-	System.out.println("x pre-populate:  " + x);
+	//Rational array
+        SuperArray r = new SuperArray();
+	System.out.println("r pre-populate:  " + r);
+	
+	r.add(new Rational(144, 42));
+	r.add(new Rational(24, 153));
+	r.add(new Binary(31));
+	r.add(new Binary("1011101"));
+	r.add(new Hexadecimal(91));
+	r.add(new Hexadecimal("10A"));
 
-	x.add(5);
-	x.add(4);
-	x.add(3);
-	x.add(2);
-	x.add(1);
+	System.out.println("r post-populate: " + r);
 
-	System.out.println("x post-populate: " + x);
-
-	x.remove(3);
-	System.out.println("x.remove(3):     " + x);
-	x.remove(3);
-	System.out.println("x.remove(3):     " + x);
-
-	x.add(3,99);
-	System.out.println("x.add(3,99):     " + x);
-	x.add(2,88);
-	System.out.println("x.add(2,88):     " + x);
-	x.add(1,77);
-	System.out.println("x.add(1,77):     " + x);
-	//*****INSERT ANY ADDITIONAL TEST CALLS HERE*****
+	r.remove(3);
+	System.out.println("remove index 3:  " + r);
+	r.remove(3);
+	System.out.println("remove index 3:  " + r);
+	
+	r.add(3, new Rational(3, 5));
+	System.out.println("insert Rational: " + r);
+	r.add(2, new Binary(16));
+	System.out.println("insert Binary:   " + r);
+	r.add(1, new Hexadecimal(135));
+	System.out.println("insert Hex:      " + r);
 
     }//end main
 		

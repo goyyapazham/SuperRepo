@@ -25,7 +25,7 @@ public class Binary implements Comparable {
     }
 
     public String toString() {
-	return _decNum + " -- " + _binNum;
+	return _binNum;
     }
 
     public int getDec() {
@@ -74,7 +74,7 @@ public class Binary implements Comparable {
         return compareTo(other) == 0;
     }
     
-     public int compareTo(Object other) {
+    public int compareTo(Object other) {
 	//first, check for aliasing...
 	if (this == other) return 0;
 	//if other is comparable...
