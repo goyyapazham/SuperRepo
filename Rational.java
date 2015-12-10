@@ -93,7 +93,7 @@ public class Rational implements Comparable {
 	//first, check for aliasing...
 	if (this == other) return 0;
 	//if other is comparable...
-	else if (other instanceof Comparable) {
+	if (other instanceof Comparable) {
 	    //if other is rational, cross-multiply and compare
 	    if (other instanceof Rational) {
 		int x = num * ((Rational)other).den;
@@ -116,9 +116,7 @@ public class Rational implements Comparable {
 	//otherwise, other is not comparable
 	else if (! (other instanceof Comparable) )
 	    throw new ClassCastException("\ninput not comparable");
-	else
-	    throw new NullPointerException("\nnull input received");
-	return 999; //never reached
+	throw new NullPointerException("\nnull input received");
     }
 
     public boolean equals(Object o) {
@@ -245,6 +243,38 @@ public class Rational implements Comparable {
 	System.out.println(s);
 	System.out.print("compare t and s: ");
 	System.out.print(t.compareTo(s) + "\n\n");
+
+	Hexadecimal h = new Hexadecimal(100);
+	System.out.println("Rational r:");
+	System.out.println(r);
+	System.out.println("Hexadecimal h:");
+	System.out.println(h);
+	System.out.println("compare r and h:");
+	System.out.println(r.compareTo(h) + "\n\n");
+
+	Binary b = new Binary(35);
+	System.out.println("Rational r:");
+	System.out.println(r);
+	System.out.println("Binary b:");
+	System.out.println(b);
+	System.out.println("compare r and b:");
+	System.out.println(r.compareTo(b) + "\n\n");
+
+	String str = new String("aslkj");
+	System.out.println("Rational r:");
+	System.out.println(r);
+	System.out.println("String str:");
+	System.out.println(str);
+	System.out.println("compare r and str:");
+	//System.out.println(r.compareTo(str) + "\n\n");
+
+	Object o = new Object();
+	System.out.println("Rational r:");
+	System.out.println(r);
+	System.out.println("Object o:");
+	System.out.println(o);
+	System.out.println("compare r and o:");
+	System.out.println(r.compareTo(o) + "\n\n");
 
         System.out.println("--------------------------------");
 
