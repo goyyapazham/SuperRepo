@@ -114,7 +114,10 @@ public class Rational implements Comparable {
 	    }
 	}
 	//otherwise, other is not comparable
-	else throw new ClassCastException("\ninput not comparable");
+	else if (! (other instanceof Comparable) )
+	    throw new ClassCastException("\ninput not comparable");
+	else
+	    throw new NullPointerException("\nnull input received");
 	return 999; //never reached
     }
 
